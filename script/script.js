@@ -3,17 +3,6 @@ const second = 1000,
       hour = minute * 60,
       day = hour * 24;
 
-async function fetchWorldTime() {
-    try {
-        const response = await fetch('http://worldtimeapi.org/api/timezone/Etc/UTC');
-        const data = await response.json();
-        return new Date(data.datetime).getTime();
-    } catch (error) {
-        console.error('Error fetching world time:', error);
-        return null;
-    }
-}
-
 (async function () {
     let today = new Date(),
         dd = String(today.getDate()).padStart(2, "0"),
@@ -30,11 +19,7 @@ async function fetchWorldTime() {
 
     const countDown = new Date(birthday).getTime();
     
-    const startTime = await fetchWorldTime();
-    if (!startTime) {
-        document.getElementById("countdown").innerText = 'Failed to load time';
-        return;
-    }
+    const startTime = new Date().getTime();
 
     const initialDifference = countDown - startTime;
 
